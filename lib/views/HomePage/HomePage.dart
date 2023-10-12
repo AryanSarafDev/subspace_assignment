@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:subspace_assignment/blocs/fetch_cubit/fetch_cubit.dart';
 import 'package:subspace_assignment/blocs/fetch_cubit/fetch_state.dart';
 import 'package:subspace_assignment/constants/colors.dart';
 import 'package:subspace_assignment/models/blog_model.dart';
+import 'package:subspace_assignment/views/widgets/blogCards.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,10 +20,11 @@ class _HomePageState extends State<HomePage> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: subspaceblack,
       appBar: AppBar(
         leadingWidth: 0,
         centerTitle: false,
-        backgroundColor: subspaceblack,
+        backgroundColor: subspacebackground,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -38,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Icon(
                   Icons.menu,
-                  color: subspaceblack,
+                  color: subspacebackground,
                 ),
               ),
             )
@@ -59,26 +62,11 @@ class _HomePageState extends State<HomePage> {
             return ListView.builder(
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50)),
-                            height: height * 0.25,
-                            width: width,
-                            child: Image.network(
-                              state.blogs.BlogsList![index].imageUrl!,
-                              fit: BoxFit.fill,
-                            )),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("${state.blogs.BlogsList![index].title}",style: TextStyle(fontSize: 16),),
-                        )
-                      ],
-                    ),
-                  );
+                  return BlogCard(
+                      height: height,
+                      width: width,
+                      url: state.blogs.BlogsList![index].imageUrl!,
+                      text: state.blogs.BlogsList![index].title!);
                 });
           }
           return Text("Error");
