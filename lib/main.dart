@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:subspace_assignment/blocs/fetch_cubit/fetch_cubit.dart';
 import 'package:subspace_assignment/views/HomePage/HomePage.dart';
 
 void main() {
@@ -11,15 +13,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return BlocProvider(
+      create: (context)=>FetchCubit() ,
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        darkTheme: ThemeData.dark(),
+        themeMode: ThemeMode.dark,
+        home: HomePage(),
       ),
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.dark,
-      home: const HomePage(),
     );
   }
 }
